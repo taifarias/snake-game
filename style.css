@@ -4,3 +4,26 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+body{
+    background-color: rgba(137, 166, 105, 1)
+}
+
+.press-start-2p-regular {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.container{
+    background-color: rgb(100, 125, 68);
+    width: 300px;
+    padding: 10px;
+    margin-top: 100px;
+    font-family: 'Press Start 2P';
+    font-size: 10px;
+}
+
+.hide{
+    display: none;
+}

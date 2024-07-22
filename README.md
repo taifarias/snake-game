@@ -27,11 +27,11 @@ usei dash line para desenhar a comida
         const snakeSize = 20
         const food = {};
         const foodSize = snakeSize/3;
-        const x1 = 50;
+        const x1 = randomX;
         const x2 = x1 + snakeSize;
         const x3 = x1 + (snakeSize/2);
 
-        const y1 = x1*2;
+        const y1 = randomY;
         const y2 = y1 - (snakeSize/2)
         const y3 = y2 + snakeSize;
         
@@ -51,27 +51,27 @@ usei dash line para desenhar a comida
             
             ctx.setLineDash([]); 
             }
-            
--nächste: 
+
+-nächste:
     vou fazer alguns experimentos agora com o posicionamento aleatorio da comida
     obs: a comida não está alinhada com a cobra
 
 Planejamento futuro:
 
     -Food
-        -> posição aleatoria da comida
-        -> comida sumir ao entrar em contato com a cobra
+        -> posição aleatoria da comida ✓
+        -> comida sumir ao entrar em contato com a cobra ✓
 
     -Pontuação
-        ->escrever pontuação na Tela
-        ->aumentar a pontuação ao comer
+        ->escrever pontuação na Tela ✓
+        ->aumentar a pontuação ao comer ✓
         ->localStorage para lembrar a pontuação
         -> escrever na tela "pontuação maxima: XX"
 
     -Body
-        -> configurar o corpo da cobra
-        -> configurar o movimento do corpo
-        -> aumentar o corpo quando comer
+        -> configurar o corpo da cobra ✓
+        -> configurar o movimento do corpo ✓
+        -> aumentar o corpo quando comer 
         -> colisão cabeça e corpo da cobra
 
     -Efeito Sonoro
@@ -81,8 +81,55 @@ Planejamento futuro:
     
     -Aumento de nivel
         -> aumento de velocidade a partir de certo tamanho do corpo
-        -> gerar "comida especial" que da "poderes" como atravesar a parede 
+        -> gerar "comida especial" que da "poderes" como atravesar a parede e dobrar de tamanho
 
 
     -colocar tela inteira
     -mobile responsive (tamanho e controle)
+
+22/07/2024 20:40
+    -> posição aleatoria da comida ✓
+    ->escrever pontuação na Tela ✓
+    ->aumentar a pontuação ao comer ✓
+    ->"sua pontuação foi:" ✓
+
+Estou trabalhando no corpo da cobra, qual logica usar. vou commitar agora para fazer algumas alterações
+ 
+ corpo está sendo criado quando detect food 
+
+    function detectFood(){
+        if(snakeHead.x < food.x + foodSize &&
+        snakeHead.x + snakeSize > food.x &&
+        snakeHead.y < food.y + foodSize &&
+        snakeHead.y + snakeSize > food.y){
+    
+        score++;
+        food.x = getRandomXY(40, 1140);
+        food.y = getRandomXY(40, 740);
+        snakeBody.push({ x: snakeHead.x, y: snakeHead.y });   // essa é a linha que deve ser mudada
+        
+
+    }
+}
+
+
+
+        function moveSnake() {
+    // Armazena a posição anterior da cabeça
+    const previousHeadPosition = { x: snakeHead.x, y: snakeHead.y };
+
+
+  
+    // Move a cabeça da cobra
+    snakeHead.x += velocityX;
+    snakeHead.y += velocityY;
+
+    // Adiciona a nova posição da cabeça ao corpo
+    snakeBody.unshift(previousHeadPosition);
+
+    // Remove o último segmento do corpo se a cobra não comeu comida
+    if (snakeBody.length > score) {
+        snakeBody.pop();
+    }
+}
+
